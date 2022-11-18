@@ -8,7 +8,7 @@ public class App
     /** prints the calculated Double value or the exception message depending on the validation
      * @param args is an array of Strings
      */
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
         try{
             Double solution = ExpressionEvaluator.evaluate(args[0].trim());

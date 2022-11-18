@@ -8,54 +8,55 @@ public class ExpressionEvaluatorTest {
 
     @Test
     void Test1(){
-        // iz zadace
+        // from the assignment
         assertEquals(101D, ExpressionEvaluator.evaluate("( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) )"));
     }
 
     @Test
     void Test2(){
-        //postoje izrazi koji nisu unutar zagrada
+        //expressions that are not in parentheses
         assertThrows(RuntimeException.class, () -> ExpressionEvaluator.evaluate("( 10 + 2 - ( 3 * 4 ) )"));
     }
 
     @Test
     void Test3(){
-        //pravilan broj zagrada ali fali operacija operacija izmedju
+        // there is no operation between parentheses
         assertThrows(RuntimeException.class, () -> ExpressionEvaluator.evaluate("( 4 / 2 ) ( 6 * 3 )"));
     }
 
     @Test
     void Test4(){
-        //prazan string
+        //an empty string
         assertThrows(RuntimeException.class, () -> ExpressionEvaluator.evaluate("( )"));
     }
 
     @Test
     void Test5(){
-        //egzoticna op sqrt
+        //checking the unique sqrt operation
         assertEquals(3D, ExpressionEvaluator.evaluate("( sqrt ( 1 ) + ( sqrt ( 36 ) - 4 ) )"));
     }
 
+    @Test
     void Test6(){
-        //sqrt bez zagrada
+        //sqrt without parentheses
         assertThrows(RuntimeException.class, () -> ExpressionEvaluator.evaluate("( sqrt 4 )"));
     }
 
     @Test
     void Test7(){
-        //nepodrzan format broj pored broja
+        //a number next to a number without an operation
         assertThrows(RuntimeException.class,()-> ExpressionEvaluator.evaluate("( 1.1 2 + 3 )"));
     }
 
     @Test
     void Test8(){
-        //zagrade su obrnute
+        //not properly closed parentheses
         assertThrows(RuntimeException.class,()-> ExpressionEvaluator.evaluate(") ) 1.5 + 2.3 ( + ) 3 - 2.7 ( ("));
     }
 
     @Test
     void Test9(){
-        //nepodrzano operacija pored operacije
+        //operation next to a operation
         assertThrows(RuntimeException.class,()-> ExpressionEvaluator.evaluate("( 2 + - 3)"));
     }
 
@@ -63,5 +64,10 @@ public class ExpressionEvaluatorTest {
     void Test10(){
         //nonsense
         assertThrows(RuntimeException.class,()-> ExpressionEvaluator.evaluate("( # + ? ! )"));
+    }
+    @Test
+    void Test11(){
+        // operation and sqrt next to each other
+        assertEquals(2,ExpressionEvaluator.evaluate("( 1 * sqrt ( 4 ) )"));
     }
 }

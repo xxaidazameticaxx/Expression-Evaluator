@@ -1,12 +1,13 @@
 package ba.unsa.etf.rpr;
 import java.util.Stack;
+
 /** Implements the Dijkstra algorithm for arithmetic expressions whose validity is thoroughly checked
  * @author Aida Zametica
  */
 public class ExpressionEvaluator {
     /** Validates an arithmetic expression by not throwing or throwing an exception for a large number of possible cases of irregularity
      * @param str is a String
-     * @throws RuntimeException
+     * @throws RuntimeException when an invalid arithmetic expression is given
      */
     private static void IsThisExpressionValid(String str) throws RuntimeException {
 
@@ -39,8 +40,8 @@ public class ExpressionEvaluator {
                         throw new RuntimeException("incorrect arithmetic expression");
                     else i = i + 3;
                 }
-                //pokrili slučaj kada je lijevo od operacije nešto što nije operand a ni ) te kada desno od operacije nije ni operand a nije ni zagrada otvorena
-                else if((!IsItParsable(arrOfStr[i-1]) && !arrOfStr[i - 1].equals(")")) || (!arrOfStr[i + 1].equals("(") && !IsItParsable(arrOfStr[i+1]) ))
+                //pokrili slučaj kada je lijevo od operacije nešto što nije operand a ni ) te kada desno od operacije nije ni operand a nije ni zagrada otvorena niti sqrt
+                else if((!IsItParsable(arrOfStr[i-1]) && !arrOfStr[i - 1].equals(")")) || (!arrOfStr[i + 1].equals("(") && !IsItParsable(arrOfStr[i+1]) && !(arrOfStr[i+1].equals("sqrt"))))
                         throw new RuntimeException("incorrect arithmetic expression");
 
             }
@@ -98,7 +99,7 @@ public class ExpressionEvaluator {
         //void method that checks if the expression is valid else it throws an exception for various problems that can occur in validity checking
         IsThisExpressionValid(str);
 
-        //if the given expession is valid it implements the Dijkstra algorithm using to stacks
+        //if the given expression is valid it implements the Dijkstra algorithm using to stacks
         String[] arrOfStr = str.split(" ");
         for (String s : arrOfStr) {
             if (s.equals("(")) ;
